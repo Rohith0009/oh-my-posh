@@ -60,11 +60,11 @@ if (-not $Upload) {
     exit
 }
 
-az storage blob upload --container-name "v$Version" --file "$installer" --name "$fileName" --connection-string "$env:CDN_CONNECTIONSTRING"
-az storage blob upload --container-name 'latest' --file "$installer" --name "$fileName" --overwrite true --connection-string "$env:CDN_CONNECTIONSTRING"
+az storage blob upload --container-name "v$Version" --file $installer --name $fileName --connection-string $env:CDN_CONNECTIONSTRING
+az storage blob upload --container-name 'latest' --file $installer --name $fileName --overwrite true --connection-string $env:CDN_CONNECTIONSTRING
 
 # create version file
 $versionFile = "version.txt"
 New-Item -Path $versionFile -ItemType File -Value "v$Version"
-az storage blob upload --container-name 'latest' --file "$versionFile" --name "$versionFile" --overwrite true --connection-string "$env:CDN_CONNECTIONSTRING"
+az storage blob upload --container-name 'latest' --file $versionFile --name $versionFile --overwrite true --connection-string $env:CDN_CONNECTIONSTRING
 
